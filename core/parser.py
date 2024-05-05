@@ -322,24 +322,6 @@ class MyParser(Parser):
 
     ###############################################################
 
-    # @_('WHILE "(" expr ")" DO expr')
-    # def expr(self, p):
-    #     result = None
-    #     #print("Dung")
-    #     # string = p.expr1[6:str(p.expr1)]
-    #     while p.expr0:
-    #         # print("This is p.expr0 = " + str(p.expr0))
-    #         # print("This is p.expr1 = " + str(p.expr1))
-    #         result = p.expr1
-    #         print(result)
-    #     return result
-
-    # @_('WHILE "(" expr ")" DO expr')
-    # def expr(self, p):
-    #     while p.expr0:
-    #         return p.expr1
-    #     return p.expr1
-
     @_('WHILE "(" expr ")" DO PRINT "(" expr ")"')
     def expr(self, p):
         while p.expr0:
