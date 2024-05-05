@@ -21,7 +21,7 @@ Note : I designed this project based on shell command.
 contact : I know you already have my LINE contact, Messages or Calls me 24 hours as you want.    
 
 
-Sample of figure :                 
+## Sample of figure :                 
 
 ![!\[alt text\](image-2.png)](imag/Picture1.png)
 
