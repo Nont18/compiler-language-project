@@ -26,5 +26,3 @@ Sample of figure :
 ![!\[alt text\](image-2.png)](imag/Picture1.png)
 
 
-![alt text](image.png)
-
