@@ -1,41 +1,41 @@
 Grammar:
 
 Rule 0     S' -> statement
-Rule 1     statement -> PRINT ( expr )
-Rule 2     statement -> IF ( expr ) statement
+Rule 1     statement -> PRINT ( expr )  [precedence=left, level=8]
+Rule 2     statement -> IF ( expr ) statement  [precedence=left, level=8]
 Rule 3     statement -> expr
 Rule 4     statement -> NAME = expr
 Rule 5     expr -> NAME
-Rule 6     expr -> WHILE ( expr ) DO PRINT ( expr )
-Rule 7     expr -> PRINT ( expr )
+Rule 6     expr -> WHILE ( expr ) DO PRINT ( expr )  [precedence=left, level=8]
+Rule 7     expr -> PRINT ( expr )  [precedence=left, level=8]
 Rule 8     expr -> STRING
 Rule 9     expr -> BOOL
 Rule 10    expr -> FLOAT
 Rule 11    expr -> NUMBER
-Rule 12    expr -> ( expr )
+Rule 12    expr -> ( expr )  [precedence=left, level=8]
 Rule 13    expr -> - expr  [precedence=right, level=6]
-Rule 14    expr -> IF expr EQ expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )
+Rule 14    expr -> IF expr EQ expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )  [precedence=left, level=8]
 Rule 15    expr -> IF expr EQ expr THEN NAME = expr ELSE NAME = expr
 Rule 16    expr -> IF expr LE expr THEN NAME = expr ELSE NAME = expr
-Rule 17    expr -> IF expr < expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )
+Rule 17    expr -> IF expr < expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )  [precedence=left, level=8]
 Rule 18    expr -> IF expr < expr THEN NAME = expr ELSE NAME = expr
 Rule 19    expr -> IF expr GE expr THEN NAME = expr ELSE NAME = expr
-Rule 20    expr -> IF expr > expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )
+Rule 20    expr -> IF expr > expr THEN PRINT ( STRING ) ELSE PRINT ( STRING )  [precedence=left, level=8]
 Rule 21    expr -> IF expr > expr THEN NAME = expr ELSE NAME = expr
-Rule 22    expr -> IF expr EQ expr THEN PRINT ( STRING )
+Rule 22    expr -> IF expr EQ expr THEN PRINT ( STRING )  [precedence=left, level=8]
 Rule 23    expr -> IF expr EQ expr THEN NAME = expr
 Rule 24    expr -> IF expr LE expr THEN NAME = expr
-Rule 25    expr -> IF expr < expr THEN PRINT ( STRING )
+Rule 25    expr -> IF expr < expr THEN PRINT ( STRING )  [precedence=left, level=8]
 Rule 26    expr -> IF expr < expr THEN NAME = expr
 Rule 27    expr -> IF expr GE expr THEN NAME = expr
-Rule 28    expr -> IF expr > expr THEN PRINT ( STRING )
+Rule 28    expr -> IF expr > expr THEN PRINT ( STRING )  [precedence=left, level=8]
 Rule 29    expr -> IF expr > expr THEN NAME = expr
 Rule 30    expr -> expr NE expr  [precedence=left, level=2]
 Rule 31    expr -> expr EQ expr  [precedence=left, level=2]
-Rule 32    expr -> expr LE expr  [precedence=left, level=5]
-Rule 33    expr -> expr < expr  [precedence=left, level=5]
-Rule 34    expr -> expr GE expr  [precedence=left, level=5]
-Rule 35    expr -> expr > expr  [precedence=left, level=5]
+Rule 32    expr -> expr LE expr  [precedence=nonassoc, level=5]
+Rule 33    expr -> expr < expr  [precedence=nonassoc, level=5]
+Rule 34    expr -> expr GE expr  [precedence=nonassoc, level=5]
+Rule 35    expr -> expr > expr  [precedence=nonassoc, level=5]
 Rule 36    expr -> expr OR expr  [precedence=left, level=4]
 Rule 37    expr -> expr AND expr  [precedence=left, level=4]
 Rule 38    expr -> expr / expr  [precedence=left, level=3]
@@ -2484,7 +2484,6 @@ state 60
     (39) expr -> . expr * expr
     (40) expr -> . expr - expr
     (41) expr -> . expr + expr
-  ! shift/reduce conflict for - resolved as shift
     EQ              reduce using rule 12 (expr -> ( expr ) .)
     LE              reduce using rule 12 (expr -> ( expr ) .)
     <               reduce using rule 12 (expr -> ( expr ) .)
@@ -2495,6 +2494,7 @@ state 60
     AND             reduce using rule 12 (expr -> ( expr ) .)
     /               reduce using rule 12 (expr -> ( expr ) .)
     *               reduce using rule 12 (expr -> ( expr ) .)
+    -               reduce using rule 12 (expr -> ( expr ) .)
     +               reduce using rule 12 (expr -> ( expr ) .)
     PRINT           shift and go to state 2
     IF              shift and go to state 5
@@ -2505,7 +2505,6 @@ state 60
     FLOAT           shift and go to state 10
     NUMBER          shift and go to state 11
     (               shift and go to state 3
-    -               shift and go to state 12
 
     expr                           shift and go to state 4
     statement                      shift and go to state 68
@@ -3455,7 +3454,6 @@ state 102
 
     (14) expr -> IF expr EQ expr THEN PRINT ( STRING ) . ELSE PRINT ( STRING )
     (22) expr -> IF expr EQ expr THEN PRINT ( STRING ) .
-  ! shift/reduce conflict for ELSE resolved as shift
     ELSE            shift and go to state 111
     NE              reduce using rule 22 (expr -> IF expr EQ expr THEN PRINT ( STRING ) .)
     EQ              reduce using rule 22 (expr -> IF expr EQ expr THEN PRINT ( STRING ) .)
@@ -3490,7 +3488,6 @@ state 105
 
     (17) expr -> IF expr < expr THEN PRINT ( STRING ) . ELSE PRINT ( STRING )
     (25) expr -> IF expr < expr THEN PRINT ( STRING ) .
-  ! shift/reduce conflict for ELSE resolved as shift
     ELSE            shift and go to state 114
     NE              reduce using rule 25 (expr -> IF expr < expr THEN PRINT ( STRING ) .)
     EQ              reduce using rule 25 (expr -> IF expr < expr THEN PRINT ( STRING ) .)
@@ -3525,7 +3522,6 @@ state 108
 
     (20) expr -> IF expr > expr THEN PRINT ( STRING ) . ELSE PRINT ( STRING )
     (28) expr -> IF expr > expr THEN PRINT ( STRING ) .
-  ! shift/reduce conflict for ELSE resolved as shift
     ELSE            shift and go to state 117
     NE              reduce using rule 28 (expr -> IF expr > expr THEN PRINT ( STRING ) .)
     EQ              reduce using rule 28 (expr -> IF expr > expr THEN PRINT ( STRING ) .)
@@ -4228,7 +4224,6 @@ state 140
 
 Conflicts:
 
-shift/reduce conflict for - in state 60 resolved as shift
 shift/reduce conflict for ELSE in state 94 resolved as shift
 shift/reduce conflict for NE in state 94 resolved as shift
 shift/reduce conflict for EQ in state 94 resolved as shift
@@ -4294,9 +4289,6 @@ shift/reduce conflict for / in state 100 resolved as shift
 shift/reduce conflict for * in state 100 resolved as shift
 shift/reduce conflict for - in state 100 resolved as shift
 shift/reduce conflict for + in state 100 resolved as shift
-shift/reduce conflict for ELSE in state 102 resolved as shift
-shift/reduce conflict for ELSE in state 105 resolved as shift
-shift/reduce conflict for ELSE in state 108 resolved as shift
 shift/reduce conflict for NE in state 128 resolved as shift
 shift/reduce conflict for EQ in state 128 resolved as shift
 shift/reduce conflict for LE in state 128 resolved as shift
@@ -4357,6 +4349,6 @@ shift/reduce conflict for / in state 134 resolved as shift
 shift/reduce conflict for * in state 134 resolved as shift
 shift/reduce conflict for - in state 134 resolved as shift
 shift/reduce conflict for + in state 134 resolved as shift
-reduce/reduce conflict in state 58 resolved using rule expr -> PRINT ( expr )
-rejected rule (statement -> PRINT ( expr )) in state 58
-Rule (statement -> PRINT ( expr )) is never reduced
+reduce/reduce conflict in state 58 resolved using rule expr -> PRINT ( expr )  [precedence=left, level=8]
+rejected rule (statement -> PRINT ( expr )  [precedence=left, level=8]) in state 58
+Rule (statement -> PRINT ( expr )  [precedence=left, level=8]) is never reduced
