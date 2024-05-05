@@ -20,7 +20,6 @@ class MyLexer(Lexer):
     LE = r'<='
     EQ = r'=='
     NE = r'!='
-
     BOOL = r'True|False'
     
 

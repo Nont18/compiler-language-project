@@ -7,13 +7,9 @@ class MyParser(Parser):
     debugfile = 'parser.out'
 
     precedence = (
-        # ('left', IF, THEN, ELSE),
-        # ('left', WHILE, DO),
-        # ('left', '>', '<', GE, LE),
         ('left', '+', '-'),
         ('left', NE, EQ),
         ('left', '*', '/'),
-        # ('right', 'UMINUS'),
         ('left', OR, AND),
         ('nonassoc', '>', '<', GE, LE),
         ('right', 'UMINUS'),
@@ -46,14 +42,6 @@ class MyParser(Parser):
     def expr(self, p):
         return p.expr0 + p.expr1
 
-    # @_('NAME "+" STRING')
-    # def expr(self, p):
-    #     if(type(p.STRING)== str):
-    #         NA = self.memory.get(variable_name=p.NAME)
-    #         self.memory.set(variable_name=p.NAME, value=NA + p.STRING, data_type=str)
-    #         return NA + p.STRING
-    #     return p.NAME + p.STRING
-
     @_('expr "-" expr')
     def expr(self, p):
         return p.expr0 - p.expr1
@@ -71,14 +59,8 @@ class MyParser(Parser):
     @_('expr AND expr')
     def expr(self, p):
         if(p.expr0 and p.expr1 == True):
-            #For debug
-            # print("This is p.expr0 =" + str(p.expr0))
-            # print("This is p.expr1 =" + str(p.expr1))
             return True
         else:
-            #For debug
-            # print("This is p.expr0 =" + str(p.expr0))
-            # print("This is p.expr1 =" + str(p.expr1))
             return False
 
     @_('expr OR expr')
