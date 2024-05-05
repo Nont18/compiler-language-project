@@ -12,7 +12,7 @@ all stuff are in this repository
 
 4.type your command after >> to see the result.       
 
-Note : I designed this project based on shell command.       
+### Note : I designed this project based on shell command.       
 
 
 ## project contribution
