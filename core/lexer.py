@@ -4,7 +4,7 @@ import sly
 class MyLexer(Lexer):
     tokens = { NAME, NUMBER, FLOAT, BOOL, NE, GE, LE, EQ, IF, THEN, ELSE, PRINT, STRING, WHILE, DO, AND, OR }
     ignore = ' \t'
-    literals = { '=', '+', '-', '*', '/', '(', ')', '.', '>', '<', ':', ';'  } #เครื่องหมายพิเศษต่างๆ (ที่ไม่ใช่ token)
+    literals = { '=', '+', '-', '*', '/', '(', ')', '.', '>', '<', ':', ';'  } 
     PRINT = r'print'
     WHILE = r'while'
     DO = r'do'
@@ -20,6 +20,7 @@ class MyLexer(Lexer):
     LE = r'<='
     EQ = r'=='
     NE = r'!='
+
     BOOL = r'True|False'
     
 
@@ -55,7 +56,7 @@ class MyLexer(Lexer):
 
 
 if __name__ == '__main__':
-    string_input:str = 'True && False OR True == True && False'
+    string_input:str = 'x=True'
     lex:Lexer = MyLexer()
     token: sly.lex.Token
     for token in lex.tokenize(string_input):

@@ -7,9 +7,13 @@ class MyParser(Parser):
     debugfile = 'parser.out'
 
     precedence = (
+        # ('left', IF, THEN, ELSE),
+        # ('left', WHILE, DO),
+        # ('left', '>', '<', GE, LE),
         ('left', '+', '-'),
         ('left', NE, EQ),
         ('left', '*', '/'),
+        # ('right', 'UMINUS'),
         ('left', OR, AND),
         ('nonassoc', '>', '<', GE, LE),
         ('right', 'UMINUS'),
@@ -42,6 +46,14 @@ class MyParser(Parser):
     def expr(self, p):
         return p.expr0 + p.expr1
 
+    # @_('NAME "+" STRING')
+    # def expr(self, p):
+    #     if(type(p.STRING)== str):
+    #         NA = self.memory.get(variable_name=p.NAME)
+    #         self.memory.set(variable_name=p.NAME, value=NA + p.STRING, data_type=str)
+    #         return NA + p.STRING
+    #     return p.NAME + p.STRING
+
     @_('expr "-" expr')
     def expr(self, p):
         return p.expr0 - p.expr1
@@ -59,8 +71,14 @@ class MyParser(Parser):
     @_('expr AND expr')
     def expr(self, p):
         if(p.expr0 and p.expr1 == True):
+            #For debug
+            # print("This is p.expr0 =" + str(p.expr0))
+            # print("This is p.expr1 =" + str(p.expr1))
             return True
         else:
+            #For debug
+            # print("This is p.expr0 =" + str(p.expr0))
+            # print("This is p.expr1 =" + str(p.expr1))
             return False
 
     @_('expr OR expr')
@@ -177,8 +195,15 @@ class MyParser(Parser):
 
     @_('IF expr EQ expr THEN PRINT "(" STRING ")"')
     def expr(self,p):
-        if p.expr0 > p.expr1:
+        if p.expr0 == p.expr1:
             return p.STRING
+        else:
+            None
+
+    @_('IF expr EQ expr THEN PRINT "(" NUMBER ")"')
+    def expr(self,p):
+        if p.expr0 == p.expr1:
+            return p.NUMBER
         else:
             None
 
@@ -304,12 +329,60 @@ class MyParser(Parser):
 
     ###############################################################
 
+    # @_('WHILE "(" expr ")" DO expr')
+    # def expr(self, p):
+    #     result = None
+    #     #print("Dung")
+    #     # string = p.expr1[6:str(p.expr1)]
+    #     while p.expr0:
+    #         # print("This is p.expr0 = " + str(p.expr0))
+    #         # print("This is p.expr1 = " + str(p.expr1))
+    #         result = p.expr1
+    #         print(result)
+    #     return result
+
+    # @_('WHILE "(" expr ")" DO expr')
+    # def expr(self, p):
+    #     while p.expr0:
+    #         return p.expr1
+    #     return p.expr1
+
     @_('WHILE "(" expr ")" DO PRINT "(" expr ")"')
     def expr(self, p):
         while p.expr0:
             print(p.expr1)
         # return p.expr1
 
+    @_('WHILE "(" expr ")" DO PRINT "(" NUMBER ")"')
+    def expr(self, p):
+        while p.expr0:
+            print(p.NUMBER)
+
+
+    @_('WHILE "(" expr ")" DO expr NAME "=" expr "-" expr')
+    def expr(self, p):
+        value = p.expr2 - p.expr3
+        while value>0:
+            print(value)
+            var_name = p.NAME
+            self.memory.set(variable_name=var_name, value=value, data_type=type(value))
+            self.names[p.NAME] = value
+            value=value-p.expr3
+
+    @_('WHILE "(" expr ")" DO NAME "=" expr "*" expr NAME "=" expr "-" expr PRINT "(" NAME ")"')
+    def expr(self, p):
+        N0 = p.expr1 * p.expr2
+        N1 = p.expr3 - p.expr4
+        while N1>0:
+            N0 = N0 * N1
+            N1 = N1-1
+            self.memory.set(variable_name=p.NAME0, value=N0, data_type=type(N0))
+            self.memory.set(variable_name=p.NAME1, value=N1, data_type=type(N1))
+            self.names[p.NAME0] = N0
+            self.names[p.NAME1] = N1
+        print(N0)
+
+    
     
 
     @_('NAME')
