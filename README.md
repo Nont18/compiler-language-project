@@ -23,6 +23,17 @@ contact : I know you already have my LINE contact, Messages or Calls me 24 hours
 
 ## Sample of figure :                 
 
-![!\[alt text\](image-2.png)](imag/Picture1.png)
+![!\[alt text\](image-2.png)](imag/Picture1.png)   
+
+
+![alt text](image-1.png)      
+
+
+![alt text](imag/image.png)
+
+
+
+
+
 
 
